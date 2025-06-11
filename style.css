@@ -1,0 +1,386 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(135deg, #ffd1dc, #ffb6c1);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    width: 100%;
+}
+
+.main-image-container {
+    width: 100%;
+    height: 400px;
+    margin-bottom: 40px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.main-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.main-image:hover {
+    transform: scale(1.05);
+}
+
+.title {
+    font-family: 'Dancing Script', cursive;
+    text-align: center;
+    color: #ff4d6d;
+    font-size: 3.5rem;
+    margin-bottom: 40px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 2s ease-in;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    padding: 20px;
+}
+
+.photo-container {
+    perspective: 1000px;
+}
+
+.photo {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    transform-style: preserve-3d;
+    transition: transform 0.8s;
+    cursor: pointer;
+}
+
+.photo:hover {
+    transform: rotateY(10deg) scale(1.05);
+}
+
+.photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.photo:hover img {
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+    color: white;
+    padding: 15px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    font-size: 1.1rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+}
+
+.photo:hover .caption {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Train Animation Styles */
+.train-animation-container {
+    position: fixed;
+    bottom: 50px;
+    left: 0;
+    width: 100%;
+    height: 150px;
+    z-index: 1000;
+}
+
+.train-track {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    background: #8B4513;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.train {
+    position: absolute;
+    bottom: 10px;
+    left: -300px;
+    width: 250px;
+    height: 100px;
+    animation: train-move 15s linear infinite;
+}
+
+.train-body {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    width: 200px;
+    height: 60px;
+    background: #ff4d6d;
+    border-radius: 10px;
+}
+
+.train-front {
+    position: absolute;
+    bottom: 0;
+    left: -20px;
+    width: 40px;
+    height: 40px;
+    background: #ff4d6d;
+    border-radius: 50% 0 0 50%;
+}
+
+.train-window {
+    position: absolute;
+    top: 10px;
+    width: 30px;
+    height: 30px;
+    background: #fff;
+    border-radius: 5px;
+}
+
+.train-window:nth-child(2) { left: 40px; }
+.train-window:nth-child(3) { left: 80px; }
+.train-window:nth-child(4) { left: 120px; }
+
+.train-wheels {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 20px;
+}
+
+.wheel {
+    position: absolute;
+    bottom: 0;
+    width: 20px;
+    height: 20px;
+    background: #333;
+    border-radius: 50%;
+    animation: wheel-rotate 1s linear infinite;
+}
+
+.wheel:nth-child(1) { left: 30px; }
+.wheel:nth-child(2) { left: 80px; }
+.wheel:nth-child(3) { left: 130px; }
+.wheel:nth-child(4) { left: 180px; }
+
+.train-image {
+    position: absolute;
+    top: -40px;
+    left: 50px;
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.train-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.love-flag {
+    position: absolute;
+    top: -30px;
+    right: 20px;
+    background: #ff4d6d;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.2rem;
+    transform: rotate(-15deg);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.smoke-container {
+    position: absolute;
+    top: -20px;
+    left: 20px;
+}
+
+.smoke {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    animation: smoke-rise 2s ease-out infinite;
+}
+
+.smoke.s1 { animation-delay: 0s; }
+.smoke.s2 { animation-delay: 0.6s; }
+.smoke.s3 { animation-delay: 1.2s; }
+
+@keyframes train-move {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(100vw + 300px)); }
+}
+
+@keyframes wheel-rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes smoke-rise {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(-50px) scale(2);
+        opacity: 0;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .title {
+        font-size: 2.5rem;
+    }
+    
+    .gallery {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+    }
+    
+    .photo {
+        height: 250px;
+    }
+
+    .main-image-container {
+        height: 300px;
+    }
+}
+
+.quote-section {
+    text-align: center;
+    margin: 40px 0;
+    position: relative;
+}
+
+.quote-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.romantic-quote {
+    font-family: 'Dancing Script', cursive;
+    color: #ff4d6d;
+    font-size: 2rem;
+    margin: 0;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.quote-decoration {
+    position: absolute;
+    width: 50px;
+    height: 2px;
+    background: #ff4d6d;
+    top: 50%;
+}
+
+.quote-decoration.left {
+    left: 20%;
+}
+
+.quote-decoration.right {
+    right: 20%;
+}
+
+.day-counter {
+    font-family: 'Dancing Script', cursive;
+    color: #ff4d6d;
+    text-align: center;
+    padding: 0 40px;
+    margin-bottom: 20px;
+    font-size: 2.5rem;
+    line-height: 1;
+}
+
+.day-counter span:first-child {
+    font-weight: bold;
+    font-size: 3.5rem;
+    margin-right: 5px;
+}
+
+.day-counter span:last-child {
+    font-size: 2rem;
+    opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+    .quote-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .romantic-quote {
+        font-size: 1.5rem;
+    }
+
+    .day-counter {
+        font-size: 2rem;
+        padding: 0 20px;
+    }
+
+    .day-counter span:first-child {
+        font-size: 2.8rem;
+    }
+
+    .day-counter span:last-child {
+        font-size: 1.6rem;
+    }
+
+    .quote-decoration.left {
+        left: 10%;
+    }
+
+    .quote-decoration.right {
+        right: 10%;
+    }
+} 

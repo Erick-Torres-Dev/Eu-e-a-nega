@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (i < originalText.length) {
             textContent.innerHTML += originalText.charAt(i);
             i++;
-            setTimeout(typeWriter, 30);
+            setTimeout(typeWriter, 50);
         } else {
             textAnimationComplete = true;
             // Show images and allow full scrolling

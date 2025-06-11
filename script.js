@@ -1,16 +1,20 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Calculate days since May 4, 2019
+    // Calculate days since May 4, 2019 in Brasília timezone
     function updateDayCounter() {
-        const startDate = new Date('2019-05-04');
-        const today = new Date();
-        const diffTime = Math.abs(today - startDate);
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        const startDate = new Date('2019-05-04T00:00:00-03:00');
+        const now = new Date();
+        const brasiliaTime = new Date(now.toLocaleString('en-US', { timeZone: 'America/Sao_Paulo' }));
+        const diffTime = Math.abs(brasiliaTime - startDate);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
         document.getElementById('days-count').textContent = diffDays;
     }
 
-    // Update day counter immediately and then every day
-    updateDayCounter();
-    setInterval(updateDayCounter, 24 * 60 * 60 * 1000);
+    function startCounter() {
+        updateDayCounter();
+        setInterval(updateDayCounter, 60000);
+    }
+
+    startCounter();
 
     // Create initial burst of hearts
     function createInitialHearts() {
@@ -33,7 +37,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Create initial hearts
     createInitialHearts();
 
     // Add floating hearts animation
@@ -52,53 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 5000);
     }
 
-    // Create hearts periodically
     setInterval(createHeart, 300);
-
-    // Add click effect to photos
-    const photos = document.querySelectorAll('.photo');
-    photos.forEach((photo) => {
-        photo.addEventListener('click', () => {
-            // Create ripple effect
-            const ripple = document.createElement('div');
-            ripple.classList.add('ripple');
-            photo.appendChild(ripple);
-
-            // Remove ripple after animation
-            setTimeout(() => {
-                ripple.remove();
-            }, 1000);
-
-            // Add love message
-            const message = document.createElement('div');
-            message.classList.add('love-message');
-            message.textContent = 'Te amo! ❤️';
-            photo.appendChild(message);
-
-            // Create burst of hearts on click
-            for (let i = 0; i < 10; i++) {
-                setTimeout(() => {
-                    const heart = document.createElement('div');
-                    heart.classList.add('floating-heart');
-                    heart.style.left = (Math.random() * 100 - 50 + 50) + '%';
-                    heart.style.top = (Math.random() * 100 - 50 + 50) + '%';
-                    heart.style.animationDuration = Math.random() * 2 + 1 + 's';
-                    heart.style.fontSize = Math.random() * 20 + 10 + 'px';
-                    heart.innerHTML = '❤️';
-                    photo.appendChild(heart);
-
-                    setTimeout(() => {
-                        heart.remove();
-                    }, 2000);
-                }, i * 100);
-            }
-
-            // Remove message after animation
-            setTimeout(() => {
-                message.remove();
-            }, 2000);
-        });
-    });
 
     // Add parallax effect to title and quote
     const title = document.querySelector('.title');
@@ -114,27 +71,60 @@ document.addEventListener('DOMContentLoaded', () => {
     const textContent = document.querySelector('.text-content');
     const originalText = textContent.innerHTML;
     textContent.innerHTML = '';
+    let textAnimationComplete = false;
+    let textAnimationStarted = false;
+    
+    // Hide images initially
+    const images = document.querySelectorAll('.small-image');
+    images.forEach(img => {
+        img.style.display = 'none';
+    });
     
     let i = 0;
     function typeWriter() {
         if (i < originalText.length) {
             textContent.innerHTML += originalText.charAt(i);
             i++;
-            setTimeout(typeWriter, 50);
+            setTimeout(typeWriter, 30);
+        } else {
+            textAnimationComplete = true;
+            // Show images and allow full scrolling
+            images.forEach(img => {
+                img.style.display = 'inline-block';
+            });
+            showImagesSequentially();
+        }
+    }
+
+    // Function to show images sequentially
+    function showImagesSequentially() {
+        images.forEach((image, index) => {
+            image.style.opacity = '0';
+            image.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                image.style.opacity = '1';
+                image.style.transform = 'translateY(0)';
+            }, index * 300);
+        });
+    }
+    
+    // Check if text section is in view
+    function checkTextVisibility() {
+        const textSection = document.querySelector('.text-section');
+        const rect = textSection.getBoundingClientRect();
+        const isVisible = rect.top <= window.innerHeight && rect.bottom >= 0;
+        
+        if (isVisible && !textAnimationStarted) {
+            textAnimationStarted = true;
+            typeWriter();
         }
     }
     
-    // Start typing effect when text section is in view
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                typeWriter();
-                observer.unobserve(entry.target);
-            }
-        });
-    });
-    
-    observer.observe(textContent);
+    // Listen for scroll events
+    window.addEventListener('scroll', checkTextVisibility);
+    // Check initial visibility
+    checkTextVisibility();
 });
 
 // Add custom styles for new elements

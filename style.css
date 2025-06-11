@@ -83,6 +83,12 @@ body {
     transition: all 0.3s ease;
 }
 
+/* Ajuste específico para as imagens 3 e 4 */
+.photo-container:nth-child(3) .photo img,
+.photo-container:nth-child(4) .photo img {
+    object-position: top -50px center;
+}
+
 .photo:hover img {
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
@@ -289,8 +295,40 @@ body {
         height: 250px;
     }
 
+    .photo img {
+        object-fit: contain;
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Remover o ajuste de foco nas imagens 3 e 4 no mobile */
+    .photo-container:nth-child(3) .photo img,
+    .photo-container:nth-child(4) .photo img {
+        object-position: center;
+    }
+
     .main-image-container {
         height: 300px;
+    }
+
+    .day-counter {
+        font-size: 2rem;
+        padding: 0 20px;
+    }
+
+    .day-counter span:first-child {
+        font-size: 2.8rem;
+    }
+
+    .day-counter span:last-child {
+        font-size: 1.6rem;
+    }
+
+    .quote-decoration.left {
+        left: 10%;
+    }
+
+    .quote-decoration.right {
+        right: 10%;
     }
 }
 

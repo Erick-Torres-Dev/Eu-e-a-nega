@@ -135,16 +135,6 @@ style.textContent = `
         font-size: 20px;
         pointer-events: none;
         animation: float-up linear forwards;
-        z-index: 1000;
-    }
-
-    .ripple {
-        position: absolute;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.4);
-        transform: scale(0);
-        animation: ripple 1s linear;
-        pointer-events: none;
     }
 
     .love-message {
@@ -169,13 +159,6 @@ style.textContent = `
         }
         100% {
             transform: translateY(-100px) scale(1);
-            opacity: 0;
-        }
-    }
-
-    @keyframes ripple {
-        to {
-            transform: scale(4);
             opacity: 0;
         }
     }

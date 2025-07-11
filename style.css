@@ -4,15 +4,183 @@
     box-sizing: border-box;
 }
 
+/* Menu Hambúrguer */
+.hamburger-menu {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+}
+
+.hamburger-icon {
+    width: 30px;
+    height: 25px;
+    position: relative;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+.hamburger-icon span {
+    display: block;
+    position: absolute;
+    height: 3px;
+    width: 100%;
+    background: #ff4d6d;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+.hamburger-icon span:nth-child(1) {
+    top: 0px;
+}
+
+.hamburger-icon span:nth-child(2) {
+    top: 11px;
+}
+
+.hamburger-icon span:nth-child(3) {
+    top: 22px;
+}
+
+.hamburger-icon.active span:nth-child(1) {
+    transform: rotate(45deg);
+    top: 11px;
+}
+
+.hamburger-icon.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger-icon.active span:nth-child(3) {
+    transform: rotate(-45deg);
+    top: 11px;
+}
+
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 999;
+}
+
+.menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.menu-content {
+    position: absolute;
+    top: 80px;
+    left: 20px;
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    min-width: 200px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transform: translateY(-20px);
+    transition: all 0.3s ease;
+}
+
+.menu-overlay.active .menu-content {
+    transform: translateY(0);
+}
+
+.menu-list {
+    list-style: none;
+}
+
+.menu-item {
+    margin-bottom: 10px;
+}
+
+.menu-link {
+    display: block;
+    padding: 10px 15px;
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.menu-link:hover {
+    background: #ffd1dc;
+    color: #ff4d6d;
+}
+
+.submenu {
+    list-style: none;
+    margin-left: 20px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.submenu.active {
+    max-height: 100px;
+}
+
+.submenu-link {
+    display: block;
+    padding: 8px 15px;
+    color: #666;
+    text-decoration: none;
+    font-size: 0.9em;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.submenu-link:hover {
+    background: #ffe6ea;
+    color: #ff4d6d;
+}
+
 body {
     font-family: 'Montserrat', sans-serif;
-    background: linear-gradient(135deg, #ffd1dc, #ffb6c1);
+    background: linear-gradient(135deg, #e8f5e8, #d4edda, #c3e6c3, #a8d8a8);
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 20px;
     overflow-x: hidden;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(34, 139, 34, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(144, 238, 144, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(50, 205, 50, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 90% 90%, rgba(34, 139, 34, 0.08) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23228B22' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: -1;
 }
 
 .container {
@@ -794,4 +962,1210 @@ body {
     position: relative;
     z-index: 2;
     margin-bottom: 40px;
-} 
+}
+
+/* Estilos para a página de Tiradentes */
+.tiradentes-gallery {
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.placeholder-message {
+    text-align: center;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+}
+
+.placeholder-message p {
+    font-size: 1.2rem;
+    color: #666;
+    font-family: 'Dancing Script', cursive;
+}
+
+/* Responsividade para o menu */
+@media (max-width: 768px) {
+    .hamburger-menu {
+        top: 15px;
+        left: 15px;
+    }
+    
+    .menu-content {
+        top: 60px;
+        left: 15px;
+        min-width: 180px;
+    }
+    
+    .hamburger-icon {
+        width: 25px;
+        height: 20px;
+    }
+    
+    .hamburger-icon span {
+        height: 2px;
+    }
+    
+    .hamburger-icon span:nth-child(2) {
+        top: 9px;
+    }
+    
+    .hamburger-icon span:nth-child(3) {
+        top: 18px;
+    }
+    
+    .hamburger-icon.active span:nth-child(1),
+    .hamburger-icon.active span:nth-child(3) {
+        top: 9px;
+    }
+}
+
+/* Background específico para a página da Cachoeira */
+body.cachoeira-page {
+    background: 
+        linear-gradient(135deg, #e8f5e8, #d4edda, #c3e6c3, #a8d8a8),
+        radial-gradient(circle at 25% 75%, rgba(34, 139, 34, 0.15) 0%, transparent 60%),
+        radial-gradient(circle at 75% 25%, rgba(144, 238, 144, 0.12) 0%, transparent 60%),
+        radial-gradient(circle at 50% 50%, rgba(50, 205, 50, 0.08) 0%, transparent 70%);
+    background-attachment: fixed;
+    position: relative;
+}
+
+body.cachoeira-page::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23228B22' fill-opacity='0.03'%3E%3Cpath d='M60 30c-5 0-10 5-10 10s5 10 10 10 10-5 10-10-5-10-10-10zm0 0c5 0 10-5 10-10s-5-10-10-10-10 5-10 10 5 10 10 10z'/%3E%3Cpath d='M20 80c-3 0-6 3-6 6s3 6 6 6 6-3 6-6-3-6-6-6zm0 0c3 0 6-3 6-6s-3-6-6-6-6 3-6 6 3 6 6 6z'/%3E%3Cpath d='M100 40c-2 0-4 2-4 4s2 4 4 4 4-2 4-4-2-4-4-4zm0 0c2 0 4-2 4-4s-2-4-4-4-4 2-4 4 2 4 4 4z'/%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: -1;
+}
+
+body.cachoeira-page::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        url("data:image/svg+xml,%3Csvg width='200' height='200' viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23228B22' fill-opacity='0.02'%3E%3Cpath d='M50 50c-8 0-15 7-15 15s7 15 15 15 15-7 15-15-7-15-15-15zm0 0c8 0 15-7 15-15s-7-15-15-15-15 7-15 15 7 15 15 15z'/%3E%3Cpath d='M150 100c-6 0-12 6-12 12s6 12 12 12 12-6 12-12-6-12-12-12zm0 0c6 0 12-6 12-12s-6-12-12-12-12 6-12 12 6 12 12 12z'/%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Estilos para a página da Cachoeira - Design Natureza */
+.nature-section {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    margin-top: 40px;
+    padding: 20px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(240, 248, 240, 0.9));
+    border-radius: 25px;
+    border: 2px solid rgba(34, 139, 34, 0.3);
+    box-shadow: 0 15px 35px rgba(34, 139, 34, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.waterfall-video-section {
+    text-align: center;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(34, 139, 34, 0.15);
+    position: relative;
+    overflow: hidden;
+}
+
+.waterfall-video-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #228B22, #32CD32, #228B22);
+}
+
+.nature-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.2rem;
+    color: #228B22;
+    margin-bottom: 25px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.nature-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, #228B22, #32CD32);
+    border-radius: 1px;
+}
+
+.video-container-nature {
+    position: relative;
+    max-width: 500px;
+    margin: 0 auto;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(34, 139, 34, 0.2);
+}
+
+.nature-video {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 15px;
+}
+
+.video-decoration {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+}
+
+.leaf {
+    position: absolute;
+    font-size: 1.5rem;
+    animation: leaf-float 3s ease-in-out infinite;
+    opacity: 0.7;
+}
+
+.leaf-1 {
+    top: 10px;
+    left: 10px;
+    animation-delay: 0s;
+}
+
+.leaf-2 {
+    top: 20px;
+    right: 15px;
+    animation-delay: 1s;
+}
+
+.leaf-3 {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation-delay: 2s;
+}
+
+@keyframes leaf-float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(5deg); }
+}
+
+.nature-gallery-section {
+    text-align: center;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(34, 139, 34, 0.15);
+}
+
+.nature-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.nature-photo-container {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(34, 139, 34, 0.2);
+    transition: all 0.4s ease;
+    background: linear-gradient(45deg, #228B22, #32CD32);
+    padding: 3px;
+}
+
+.nature-photo-container:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 15px 35px rgba(34, 139, 34, 0.3);
+}
+
+.nature-photo {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 17px;
+    transition: transform 0.4s ease;
+}
+
+.nature-photo-container:hover .nature-photo {
+    transform: scale(1.05);
+}
+
+.nature-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(34, 139, 34, 0.8), rgba(144, 238, 144, 0.6));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    border-radius: 17px;
+}
+
+.nature-photo-container:hover .nature-overlay {
+    opacity: 1;
+}
+
+.nature-icon {
+    font-size: 3rem;
+    animation: icon-bounce 0.6s ease-in-out;
+}
+
+@keyframes icon-bounce {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+/* Responsividade para o design natureza */
+@media (max-width: 768px) {
+    .nature-section {
+        gap: 30px;
+        padding: 15px;
+    }
+    
+    .waterfall-video-section,
+    .nature-gallery-section {
+        padding: 20px;
+    }
+    
+    .nature-title {
+        font-size: 1.8rem;
+    }
+    
+    .video-container-nature {
+        max-width: 100%;
+    }
+    
+    .nature-gallery {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+    }
+    
+    .nature-photo {
+        height: 250px;
+    }
+}
+
+@media (max-width: 480px) {
+    .nature-gallery {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .nature-photo {
+        height: 220px;
+    }
+    
+    .nature-title {
+        font-size: 1.5rem;
+    }
+}
+
+/* Elementos naturais flutuantes */
+.floating-nature-elements {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.floating-leaf {
+    position: absolute;
+    font-size: 1.2rem;
+    opacity: 0.6;
+    animation: nature-float 8s linear infinite;
+}
+
+.floating-leaf:nth-child(1) {
+    left: 10%;
+    animation-delay: 0s;
+    animation-duration: 12s;
+}
+
+.floating-leaf:nth-child(2) {
+    left: 25%;
+    animation-delay: 2s;
+    animation-duration: 10s;
+}
+
+.floating-leaf:nth-child(3) {
+    left: 40%;
+    animation-delay: 4s;
+    animation-duration: 14s;
+}
+
+.floating-leaf:nth-child(4) {
+    left: 60%;
+    animation-delay: 6s;
+    animation-duration: 11s;
+}
+
+.floating-leaf:nth-child(5) {
+    left: 80%;
+    animation-delay: 8s;
+    animation-duration: 13s;
+}
+
+@keyframes nature-float {
+    0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.6;
+    }
+    90% {
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Elementos decorativos naturais adicionais */
+.nature-bg-decoration {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.nature-bg-decoration::before {
+    content: '';
+    position: absolute;
+    top: 10%;
+    left: 5%;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(34, 139, 34, 0.05) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: nature-pulse 4s ease-in-out infinite;
+}
+
+.nature-bg-decoration::after {
+    content: '';
+    position: absolute;
+    bottom: 15%;
+    right: 8%;
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, rgba(144, 238, 144, 0.04) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: nature-pulse 6s ease-in-out infinite reverse;
+}
+
+.nature-icon-bg {
+    position: absolute;
+    font-size: 1.5rem;
+    opacity: 0.4;
+    animation: nature-float-slow 15s linear infinite;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.nature-leaf-1 {
+    top: 15%;
+    left: 10%;
+    animation-delay: 0s;
+    animation-duration: 20s;
+}
+
+.nature-leaf-2 {
+    top: 25%;
+    right: 15%;
+    animation-delay: 3s;
+    animation-duration: 18s;
+}
+
+.nature-stone-1 {
+    bottom: 20%;
+    left: 20%;
+    animation-delay: 6s;
+    animation-duration: 25s;
+    font-size: 1.2rem;
+}
+
+.nature-leaf-3 {
+    top: 60%;
+    left: 5%;
+    animation-delay: 9s;
+    animation-duration: 22s;
+}
+
+.nature-stone-2 {
+    top: 40%;
+    right: 25%;
+    animation-delay: 12s;
+    animation-duration: 28s;
+    font-size: 1.3rem;
+}
+
+.nature-leaf-4 {
+    bottom: 30%;
+    right: 10%;
+    animation-delay: 15s;
+    animation-duration: 19s;
+}
+
+.nature-flower-1 {
+    top: 70%;
+    left: 30%;
+    animation-delay: 18s;
+    animation-duration: 24s;
+}
+
+.nature-stone-3 {
+    top: 20%;
+    left: 50%;
+    animation-delay: 21s;
+    animation-duration: 26s;
+    font-size: 1.1rem;
+}
+
+.nature-leaf-5 {
+    bottom: 40%;
+    left: 40%;
+    animation-delay: 24s;
+    animation-duration: 21s;
+}
+
+.nature-flower-2 {
+    top: 50%;
+    right: 5%;
+    animation-delay: 27s;
+    animation-duration: 23s;
+}
+
+@keyframes nature-float-slow {
+    0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.4;
+    }
+    90% {
+        opacity: 0.4;
+    }
+    100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+@keyframes nature-pulse {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.2); opacity: 0.8; }
+}
+
+/* River and Wooden Boat Animation Styles */
+.river-animation-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 200px;
+    z-index: 10;
+    overflow: hidden;
+}
+
+/* River */
+.river {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+}
+
+.river-water {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, #4682B4, #1E90FF, #000080);
+    animation: river-flow 6s linear infinite;
+}
+
+.river-ripples {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.ripple {
+    position: absolute;
+    bottom: 20px;
+    width: 40px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    animation: ripple-spread 3s ease-out infinite;
+}
+
+.ripple.r1 { left: 15%; animation-delay: 0s; }
+.ripple.r2 { left: 35%; animation-delay: 0.8s; }
+.ripple.r3 { left: 55%; animation-delay: 1.6s; }
+.ripple.r4 { left: 75%; animation-delay: 2.4s; }
+
+@keyframes river-flow {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 100% 0%; }
+}
+
+@keyframes ripple-spread {
+    0% {
+        transform: scale(0);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(3);
+        opacity: 0;
+    }
+}
+
+/* Modern Sailboat */
+.modern-sailboat {
+    position: absolute;
+    bottom: 80px;
+    left: -300px;
+    width: 320px;
+    height: 240px;
+    animation: sailboat-journey 20s linear infinite;
+    z-index: 10;
+}
+
+.wooden-boat::before {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 30px;
+    width: 180px;
+    height: 15px;
+    background: linear-gradient(to bottom, rgba(70, 130, 180, 0.8), rgba(30, 144, 255, 0.4));
+    border-radius: 50%;
+    animation: water-reflection 3s ease-in-out infinite;
+}
+
+.boat-hull-wooden {
+    position: absolute;
+    bottom: 0;
+    left: 30px;
+    width: 180px;
+    height: 60px;
+    background: linear-gradient(45deg, #8B4513, #A0522D, #CD853F);
+    border-radius: 0 50% 50% 0;
+    border: 4px solid #654321;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    transform: rotate(180deg);
+    animation: boat-float 4s ease-in-out infinite;
+}
+
+.boat-hull-wooden::before {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    right: 0;
+    height: 12px;
+    background: linear-gradient(to bottom, #4682B4, #1E90FF);
+    border-radius: 50% 50% 0 0;
+    opacity: 0.7;
+    animation: hull-water 2s ease-in-out infinite;
+}
+
+.wood-plank {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 12px;
+    background: linear-gradient(90deg, #8B4513, #A0522D, #CD853F, #A0522D, #8B4513);
+    border-bottom: 1px solid #654321;
+}
+
+.wood-plank.p1 { top: 5px; }
+.wood-plank.p2 { top: 17px; }
+.wood-plank.p3 { top: 29px; }
+.wood-plank.p4 { top: 41px; }
+.wood-plank.p5 { top: 53px; }
+
+/* Boat details */
+.boat-details {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.boat-nail {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #2F4F4F;
+    border-radius: 50%;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.boat-nail.n1 { top: 10px; left: 20px; }
+.boat-nail.n2 { top: 10px; right: 20px; }
+.boat-nail.n3 { top: 25px; left: 15px; }
+.boat-nail.n4 { top: 25px; right: 15px; }
+.boat-nail.n5 { top: 40px; left: 25px; }
+.boat-nail.n6 { top: 40px; right: 25px; }
+
+.boat-seam {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #654321;
+    transform: translateX(-50%);
+    opacity: 0.7;
+}
+
+.boat-photo-sail {
+    position: absolute;
+    top: -90px;
+    left: 60px;
+    width: 120px;
+    height: 120px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 6px solid #8B4513;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    background: #fff;
+    transform: rotate(175deg);
+}
+
+.boat-photo-sail::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.3) 50%, transparent 70%);
+    pointer-events: none;
+}
+
+.boat-photo-sail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.boat-mast-wooden {
+    position: absolute;
+    top: -100px;
+    left: 115px;
+    width: 12px;
+    height: 130px;
+    background: linear-gradient(to bottom, #8B4513, #A0522D, #CD853F);
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    transform: rotate(182deg);
+}
+
+.boat-mast-wooden::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: -4px;
+    width: 20px;
+    height: 20px;
+    background: #FFD700;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    border: 2px solid #B8860B;
+}
+
+.boat-mast-wooden::after {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: -2px;
+    width: 16px;
+    height: 4px;
+    background: #8B4513;
+    border-radius: 2px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Boat ropes */
+.boat-rope {
+    position: absolute;
+    background: linear-gradient(45deg, #8B4513, #A0522D);
+    border-radius: 2px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.boat-rope.r1 {
+    top: -80px;
+    left: 110px;
+    width: 3px;
+    height: 60px;
+    transform: rotate(165deg);
+}
+
+.boat-rope.r2 {
+    top: -70px;
+    left: 125px;
+    width: 3px;
+    height: 50px;
+    transform: rotate(195deg);
+}
+
+
+
+.love-flag-wooden {
+    position: absolute;
+    top: -60px;
+    right: -30px;
+    background: linear-gradient(45deg, #ff4d6d, #ff6b8a, #ff8fa3);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 25px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    animation: flag-wave 2s ease-in-out infinite;
+    transform-origin: bottom center;
+    box-shadow: 0 5px 15px rgba(255, 77, 109, 0.5);
+    border: 3px solid rgba(255, 255, 255, 0.4);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    transform: rotate(90deg);
+}
+
+.boat-wake-wooden {
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.wave-wooden {
+    position: absolute;
+    width: 50px;
+    height: 15px;
+    background: rgba(70, 130, 180, 0.8);
+    border-radius: 50%;
+    animation: wave-spread-wooden 3s ease-out infinite;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+.wave-wooden.w1 { animation-delay: 0s; }
+.wave-wooden.w2 { animation-delay: 0.6s; }
+.wave-wooden.w3 { animation-delay: 1.2s; }
+.wave-wooden.w4 { animation-delay: 1.8s; }
+
+@keyframes wooden-boat-journey {
+    0% {
+        left: -240px;
+        bottom: 60px;
+        transform: translateY(0px) rotate(0deg);
+    }
+    25% {
+        left: 25%;
+        bottom: 60px;
+        transform: translateY(-5px) rotate(1deg);
+    }
+    50% {
+        left: 50%;
+        bottom: 60px;
+        transform: translateY(0px) rotate(0deg);
+    }
+    75% {
+        left: 75%;
+        bottom: 60px;
+        transform: translateY(-5px) rotate(-1deg);
+    }
+    100% {
+        left: 100%;
+        bottom: 60px;
+        transform: translateY(0px) rotate(0deg);
+    }
+}
+
+@keyframes boat-float {
+    0%, 100% {
+        transform: rotate(90deg) translateY(0px);
+    }
+    50% {
+        transform: rotate(90deg) translateY(-3px);
+    }
+}
+
+@keyframes water-reflection {
+    0%, 100% {
+        opacity: 0.6;
+        transform: scaleY(1);
+    }
+    50% {
+        opacity: 0.8;
+        transform: scaleY(1.1);
+    }
+}
+
+@keyframes hull-water {
+    0%, 100% {
+        opacity: 0.7;
+        transform: scaleY(1);
+    }
+    50% {
+        opacity: 0.9;
+        transform: scaleY(1.05);
+    }
+}
+
+@keyframes wave-spread-wooden {
+    0% {
+        transform: translateX(-50%) scale(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(-50%) scale(3);
+        opacity: 0;
+    }
+}
+
+/* Modern Sailboat Styles */
+.modern-sailboat::before {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 20px;
+    background: linear-gradient(to bottom, rgba(70, 130, 180, 0.6), rgba(30, 144, 255, 0.3));
+    border-radius: 50%;
+    animation: sailboat-reflection 4s ease-in-out infinite;
+}
+
+/* Hull */
+.sailboat-hull {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 80px;
+}
+
+.hull-body {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background: linear-gradient(135deg, #8B4513, #A0522D, #CD853F);
+    border-radius: 0 0 100px 100px;
+    border: 3px solid #654321;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+    animation: hull-float 5s ease-in-out infinite;
+}
+
+.hull-deck {
+    position: absolute;
+    top: 0;
+    left: 10px;
+    right: 10px;
+    height: 20px;
+    background: linear-gradient(45deg, #A0522D, #8B4513);
+    border-radius: 0 0 20px 20px;
+    border: 2px solid #654321;
+}
+
+.hull-windows {
+    position: absolute;
+    top: 5px;
+    left: 0;
+    right: 0;
+    height: 10px;
+}
+
+.window {
+    position: absolute;
+    width: 25px;
+    height: 8px;
+    background: linear-gradient(45deg, #87ceeb, #b0e0e6);
+    border-radius: 2px;
+    border: 1px solid #4682b4;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.window.w1 { left: 30px; }
+.window.w2 { left: 80px; }
+.window.w3 { right: 30px; }
+
+.hull-railing {
+    position: absolute;
+    top: -5px;
+    left: 5px;
+    right: 5px;
+    height: 8px;
+    background: linear-gradient(45deg, #CD853F, #A0522D);
+    border-radius: 4px;
+    border: 1px solid #654321;
+}
+
+/* Mast */
+.sailboat-mast {
+    position: absolute;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 160px;
+}
+
+.mast-pole {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8px;
+    height: 140px;
+    background: linear-gradient(to bottom, #8b4513, #a0522d, #cd853f);
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.mast-top {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 20px;
+    background: #ffd700;
+    border-radius: 50%;
+    border: 2px solid #b8860b;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.mast-flag {
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 20px;
+    animation: flag-wave 3s ease-in-out infinite;
+}
+
+/* Sails */
+.sailboat-sails {
+    position: absolute;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 180px;
+    height: 120px;
+}
+
+.main-sail {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 130px;
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef, #dee2e6);
+    border-radius: 0 0 75px 0;
+    border: 3px solid #adb5bd;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    animation: sail-billow 6s ease-in-out infinite;
+}
+
+.main-sail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0 0 75px 0;
+}
+
+.jib-sail {
+    position: absolute;
+    bottom: 20px;
+    right: 0;
+    width: 80px;
+    height: 60px;
+    border-radius: 0 0 0 40px;
+    border: 2px solid #8B4513;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+    animation: jib-billow 4s ease-in-out infinite;
+    overflow: hidden;
+}
+
+.jib-sail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0 0 0 40px;
+}
+
+/* Ropes */
+.sailboat-ropes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.rope {
+    position: absolute;
+    background: linear-gradient(45deg, #8b4513, #a0522d);
+    border-radius: 1px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.rope.rope1 {
+    top: 20px;
+    left: 50%;
+    width: 2px;
+    height: 80px;
+    transform: translateX(-50%);
+}
+
+.rope.rope2 {
+    top: 40px;
+    left: 30%;
+    width: 2px;
+    height: 60px;
+    transform: rotate(-15deg);
+}
+
+.rope.rope3 {
+    top: 30px;
+    right: 25%;
+    width: 2px;
+    height: 70px;
+    transform: rotate(15deg);
+}
+
+/* Wake */
+.sailboat-wake {
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.wake-wave {
+    position: absolute;
+    width: 60px;
+    height: 20px;
+    background: rgba(70, 130, 180, 0.7);
+    border-radius: 50%;
+    animation: wake-spread 4s ease-out infinite;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.wake-wave.ww1 { animation-delay: 0s; }
+.wake-wave.ww2 { animation-delay: 0.8s; }
+.wake-wave.ww3 { animation-delay: 1.6s; }
+
+
+
+@keyframes sailboat-journey {
+    0% {
+        left: -300px;
+    }
+    100% {
+        left: 100vw;
+    }
+}
+
+@keyframes sailboat-reflection {
+    0%, 100% {
+        opacity: 0.6;
+        transform: translateX(-50%) scaleY(1);
+    }
+    50% {
+        opacity: 0.8;
+        transform: translateX(-50%) scaleY(1.1);
+    }
+}
+
+@keyframes hull-float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-3px);
+    }
+}
+
+@keyframes sail-billow {
+    0%, 100% {
+        transform: translateX(-50%) scale(1);
+    }
+    50% {
+        transform: translateX(-50%) scale(1.05);
+    }
+}
+
+@keyframes jib-billow {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.03);
+    }
+}
+
+@keyframes wake-spread {
+    0% {
+        transform: translateX(-50%) scale(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(-50%) scale(3);
+        opacity: 0;
+    }
+}
+
+
+
+ 

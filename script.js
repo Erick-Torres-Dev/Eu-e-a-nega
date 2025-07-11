@@ -1,4 +1,29 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Menu Hambúrguer Functionality
+    const hamburgerIcon = document.getElementById('hamburger-icon');
+    const menuOverlay = document.getElementById('menu-overlay');
+    const viagensLink = document.getElementById('viagens-link');
+    const viagensSubmenu = document.getElementById('viagens-submenu');
+
+    // Toggle menu
+    hamburgerIcon.addEventListener('click', () => {
+        hamburgerIcon.classList.toggle('active');
+        menuOverlay.classList.toggle('active');
+    });
+
+    // Close menu when clicking outside
+    menuOverlay.addEventListener('click', (e) => {
+        if (e.target === menuOverlay) {
+            hamburgerIcon.classList.remove('active');
+            menuOverlay.classList.remove('active');
+        }
+    });
+
+    // Toggle submenu
+    viagensLink.addEventListener('click', () => {
+        viagensSubmenu.classList.toggle('active');
+    });
+
     // Calculate days since May 4, 2019 in Brasília timezone
     function updateDayCounter() {
         const startDate = new Date('2019-05-04T00:00:00-03:00');
